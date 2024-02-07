@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { LoadingProvider } from "./contexts/LoadingContext";
+import { AxiosProvider } from "./contexts/AxiosContext";
+import { EnvProvider } from "./contexts/EnvContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="jp">
+      <body className={inter.className}>
+        <LoadingProvider>
+          <EnvProvider>
+            <AxiosProvider>{children}</AxiosProvider>
+          </EnvProvider>
+        </LoadingProvider>
+      </body>
     </html>
   );
 }
